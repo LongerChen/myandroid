@@ -4,12 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import myandroid.async.AsyncRunnable3;
+
+import myandroid.async.AsyncRunnable;
 import myandroid.file.FileMethod;
 import myandroid.tools.Develop;
 
-
-public class AsyncFile extends AsyncRunnable3<File> {
+public class AsyncFile extends AsyncRunnable<File> {
 	File input = null;
 	File output = null;
 	int fileMethod = 0;
@@ -21,21 +21,15 @@ public class AsyncFile extends AsyncRunnable3<File> {
 	}
 
 	@Override
-	protected void onPrepare() {
-		if (input == null || fileMethod == FileMethod.NONE)
-			Develop.e(this, "Call initialize before execute");
-	}
-
-	@Override
 	protected File onExecute() {
-		if (input == null || fileMethod == FileMethod.NONE) 
+		if (input == null || fileMethod == FileMethod.NONE)
 			return null;
 
 		switch (fileMethod) {
 		case FileMethod.DELETE:
 			input.delete();
 			return output;
-//			break;
+			// break;
 		case FileMethod.COPY:
 			try {
 				FileInputStream fis = new FileInputStream(input);
@@ -50,27 +44,16 @@ public class AsyncFile extends AsyncRunnable3<File> {
 				Develop.e(this, "IOException");
 				return null;
 			}
-//			break;
+			// break;
 		case FileMethod.MOVE:
 			input.renameTo(output);
 			return output;
-//			break;
+			// break;
 		default:
 			Develop.e(this, "Illegal fileMethod");
 			return null;
-//			break;
+			// break;
 		}
-	}
-
-//	@Override
-//	protected void onFinish(File r) {
-//		postResoult(r == null ? AsyncStatus.FAILURE : AsyncStatus.SUCCESS, r);
-//	}
-
-	@Override
-	protected void onResoult(File result, int status) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

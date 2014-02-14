@@ -25,8 +25,10 @@ public abstract class AsyncRunnable<R> extends Handler implements Runnable {
 
 	@Override
 	public void handleMessage(Message msg) {
-		if (callBack != null)
+		if (callBack != null){
 			callBack.onResult(msg.what == AsyncStatus.SUCCESS, (R) msg.obj);
+			onResult((R) msg.obj);
+		}
 	};
 
 	public void execute() {
@@ -40,5 +42,9 @@ public abstract class AsyncRunnable<R> extends Handler implements Runnable {
 			e.printStackTrace();
 		}
 		Async.execute(this);
+	}
+	
+	public void onResult(R r){
+		
 	}
 }

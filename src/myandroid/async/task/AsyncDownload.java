@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import myandroid.async.AsyncRunnable3;
-import myandroid.async.AsyncStatus;
+import myandroid.async.AsyncRunnable;
 import myandroid.http.HttpConnect;
 import myandroid.tools.Develop;
 
-public class AsyncDownload extends AsyncRunnable3<File> {
+public class AsyncDownload extends AsyncRunnable<File> {
 	File output;
 	HttpConnect httpConnect;
 
@@ -19,7 +18,7 @@ public class AsyncDownload extends AsyncRunnable3<File> {
 	}
 
 	@Override
-	protected void onPrepare() {
+	protected File onExecute() {
 
 		if (output.exists())
 			Develop.e(this, "File exists, override file");
@@ -29,10 +28,7 @@ public class AsyncDownload extends AsyncRunnable3<File> {
 			if (!folder.exists())
 				folder.mkdirs();
 		}
-	}
-
-	@Override
-	protected File onExecute() {
+		
 		try {
 			Develop.i(this, Develop.divider + "START DOWNLOAD"
 					+ Develop.divider);
@@ -45,7 +41,6 @@ public class AsyncDownload extends AsyncRunnable3<File> {
 				fos.write(data, 0, flag);
 			fos.flush();
 			Develop.i(this, Develop.divider + "END DOWNLOAD" + Develop.divider);
-			postResoult(AsyncStatus.SUCCESS, output);
 			is.close();
 			fos.close();
 			return output;
@@ -53,17 +48,6 @@ public class AsyncDownload extends AsyncRunnable3<File> {
 			Develop.e(this, "no InputStream could be created");
 			return null;
 		}
-	}
-
-//	@Override
-//	protected void onFinish(File r) {
-//		postResoult(r == null ? AsyncStatus.FAILURE : AsyncStatus.SUCCESS, r);
-//	}
-
-	@Override
-	protected void onResoult(File result, int status) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

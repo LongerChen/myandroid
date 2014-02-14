@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import myandroid.async.AsyncRunnable3;
+import myandroid.async.AsyncRunnable;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory.Options;
 
-public class AsyncBitmapDownload extends AsyncRunnable3<File> {
+public class AsyncBitmapDownload extends AsyncRunnable<File> {
 	String url;
 	File output;
 	CompressFormat format;
@@ -29,12 +29,6 @@ public class AsyncBitmapDownload extends AsyncRunnable3<File> {
 	}
 
 	@Override
-	protected void onPrepare() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	protected File onExecute() {
 		try {
 			Bitmap bitmap = BitmapFactory.decodeStream(new URL(url)
@@ -48,17 +42,6 @@ public class AsyncBitmapDownload extends AsyncRunnable3<File> {
 			e.printStackTrace();
 			return null;
 		}
-	}
-
-//	@Override
-//	protected void onFinish(File r) {
-//		postResoult(r == null ? AsyncStatus.FAILURE : AsyncStatus.SUCCESS, r);
-//	}
-
-	@Override
-	protected void onResoult(File result, int status) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

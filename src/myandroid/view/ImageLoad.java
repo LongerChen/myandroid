@@ -10,6 +10,7 @@ import myandroid.async.task.AsyncBitmap;
 import myandroid.async.task.AsyncUrlBitmap;
 import myandroid.tools.Develop;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -18,9 +19,11 @@ import android.graphics.BitmapFactory.Options;
 import android.widget.ImageView;
 
 public class ImageLoad extends ImageView {
+	Context context;
 
 	public ImageLoad(Context context) {
 		super(context);
+		this.context = context;
 	}
 
 	public void loadImage(String url, final File file) {
@@ -58,20 +61,10 @@ public class ImageLoad extends ImageView {
 
 	public void setImageFile(File file) {
 		Develop.i(this, "Load Image From File" + file.getAbsolutePath());
-		AsyncBitmap fileBitmap = new AsyncBitmap();
+		AsyncBitmap fileBitmap = new AsyncBitmap((Activity) context);
 		Options opts = new Options();
 		opts.inPreferredConfig = Config.RGB_565;
-		fileBitmap.initialize(file, opts);
-		fileBitmap.setCallBack(new AsyncCallBack<Bitmap>() {
-
-			@Override
-			public void onResult(boolean isSuccess, Bitmap obj) {
-				if (isSuccess)
-					setImageBitmap(obj);
-			}
-		});
-		Async.execute(fileBitmap);
-//		setImageBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+		fileBitmap.load(this,file, opts);
 	}
 
 	public void setImageUrl(String url) {

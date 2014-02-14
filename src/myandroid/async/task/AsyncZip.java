@@ -12,10 +12,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import myandroid.async.AsyncRunnable3;
+import myandroid.async.AsyncRunnable;
 import myandroid.tools.Develop;
 
-public class AsyncZip extends AsyncRunnable3<File> {
+public class AsyncZip extends AsyncRunnable<File> {
 	File output;
 	File source;
 	List<String> files = new ArrayList<String>();
@@ -25,11 +25,6 @@ public class AsyncZip extends AsyncRunnable3<File> {
 		this.output = output;
 		this.source = folder;
 		Develop.e(this, source.exists());
-	}
-
-	@Override
-	protected void onPrepare() {
-
 	}
 
 	@Override
@@ -82,17 +77,6 @@ public class AsyncZip extends AsyncRunnable3<File> {
 			else
 				files.add(file.getAbsolutePath());
 		}
-	}
-
-//	@Override
-//	protected void onFinish(File r) {
-//		postResoult(r == null ? AsyncStatus.FAILURE : AsyncStatus.SUCCESS, r);
-//	}
-
-	@Override
-	protected void onResoult(File result, int status) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

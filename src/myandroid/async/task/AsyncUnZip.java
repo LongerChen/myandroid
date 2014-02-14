@@ -9,10 +9,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
-import myandroid.async.AsyncRunnable3;
-import myandroid.async.AsyncStatus;
+import myandroid.async.AsyncRunnable;
 
-public class AsyncUnZip extends AsyncRunnable3<File> {
+public class AsyncUnZip extends AsyncRunnable<File> {
 	ZipFile zipFile;
 	File output;
 
@@ -26,16 +25,8 @@ public class AsyncUnZip extends AsyncRunnable3<File> {
 			this.zipFile = new ZipFile(zipFile);
 			this.output = output;
 		} catch (ZipException e) {
-			postResoult(AsyncStatus.FAILURE, null);
 		} catch (IOException e) {
-			postResoult(AsyncStatus.FAILURE, null);
 		}
-	}
-
-	@Override
-	protected void onPrepare() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -80,17 +71,6 @@ public class AsyncUnZip extends AsyncRunnable3<File> {
 		} catch (IOException e) {
 			return null;
 		}
-	}
-
-//	@Override
-//	protected void onFinish(File r) {
-//		postResoult(r == null ? AsyncStatus.FAILURE : AsyncStatus.SUCCESS, r);
-//	}
-
-	@Override
-	protected void onResoult(File result, int status) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

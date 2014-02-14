@@ -3,13 +3,10 @@ package myandroid.view;
 import com.myandroid.R;
 
 import myandroid.layout.Sizer;
-import myandroid.tools.Develop;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -17,11 +14,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.MeasureSpec;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class SwitchBox extends CompoundButton {
 	boolean checked = false;
