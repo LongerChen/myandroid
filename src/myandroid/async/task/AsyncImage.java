@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import myandroid.async.AsyncRunnable;
 import myandroid.http.HttpFactory;
 import myandroid.http.HttpResponse;
+import myandroid.tools.Develop;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
@@ -16,7 +17,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.widget.ImageView;
 
-public class AsyncBitmap extends AsyncRunnable<Bitmap> {
+public class AsyncImage extends AsyncRunnable<Bitmap> {
 	boolean cache = false;
 	Activity activity;
 	File file;
@@ -24,7 +25,7 @@ public class AsyncBitmap extends AsyncRunnable<Bitmap> {
 	Options opts = new Options();
 	View v;
 
-	public AsyncBitmap(Activity activity) {
+	public AsyncImage(Activity activity) {
 		this.activity = activity;
 	}
 
@@ -48,10 +49,7 @@ public class AsyncBitmap extends AsyncRunnable<Bitmap> {
 	}
 
 	public void load(View v, String url, Options opts) {
-		this.v = v;
-		this.opts = opts;
-		this.url = url;
-		execute();
+		load(v, url, null, opts);
 	}
 
 	public void load(int v, File file) {
@@ -83,11 +81,12 @@ public class AsyncBitmap extends AsyncRunnable<Bitmap> {
 	}
 
 	public void load(View v, String url, File file, Options opts) {
-		cache = url != null && file != null;
-		if (file.exists())
-			load(v, file);
 		this.file = file;
 		this.opts = opts;
+		this.v = v;
+		this.url = url;
+		cache = url != null && file != null;
+		execute();
 	}
 
 	public void load(int v, String url, File file, Options opts) {
@@ -101,11 +100,12 @@ public class AsyncBitmap extends AsyncRunnable<Bitmap> {
 	@Override
 	protected Bitmap onExecute() {
 		if (cache && file.exists())
-			return BitmapFactory.decodeFile(file.getAbsolutePath(), opts);
+			return BitmapFactory.decodeFile(file.getAbsolutePath());
 		Bitmap bm = BitmapFactory.decodeStream(
 				HttpResponse.getInputStream(HttpFactory.get(url)), null, opts);
 		try {
-			bm.compress(CompressFormat.PNG, 100, new FileOutputStream(file));
+			if (file != null && bm != null)
+				bm.compress(CompressFormat.PNG, 100, new FileOutputStream(file));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -113,7 +113,9 @@ public class AsyncBitmap extends AsyncRunnable<Bitmap> {
 	}
 
 	@Override
-	public void onResult(Bitmap r) {
+	public void onResult(boolean isSuccess, Bitmap r) {
+		if (!isSuccess)
+			return;
 		if (v == null || r == null)
 			return;
 		load(v, r);

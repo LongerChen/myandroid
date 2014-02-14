@@ -6,7 +6,7 @@ import java.io.FileOutputStream;
 
 import myandroid.async.Async;
 import myandroid.async.AsyncCallBack;
-import myandroid.async.task.AsyncBitmap;
+import myandroid.async.task.AsyncImage;
 import myandroid.async.task.AsyncUrlBitmap;
 import myandroid.tools.Develop;
 
@@ -61,7 +61,7 @@ public class ImageLoad extends ImageView {
 
 	public void setImageFile(File file) {
 		Develop.i(this, "Load Image From File" + file.getAbsolutePath());
-		AsyncBitmap fileBitmap = new AsyncBitmap((Activity) context);
+		AsyncImage fileBitmap = new AsyncImage((Activity) context);
 		Options opts = new Options();
 		opts.inPreferredConfig = Config.RGB_565;
 		fileBitmap.load(this,file, opts);
