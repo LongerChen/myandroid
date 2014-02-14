@@ -1,0 +1,4 @@
+int drawable switch_btndown 0x7f020000
+int drawable switch_btnup 0x7f020001
+int drawable switch_frame 0x7f020002
+int drawable switch_mask 0x7f020003
