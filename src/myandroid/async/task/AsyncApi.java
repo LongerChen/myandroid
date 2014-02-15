@@ -12,6 +12,15 @@ public abstract class AsyncApi<R> extends AsyncRunnable<R> {
 	HttpURLConnection connection;
 	protected Map<String, Object> params = new HashMap<String, Object>();
 
+	public AsyncApi(Object[]... values) {
+		for (Object[] o : values)
+			params.put(o[0].toString(), o[1].toString());
+	}
+
+	public AsyncApi(Map<String, Object> params) {
+		this.params = params;
+	}
+
 	public void setConnection(HttpURLConnection connection) {
 		this.connection = connection;
 	}

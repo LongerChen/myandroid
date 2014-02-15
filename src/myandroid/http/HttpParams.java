@@ -2,6 +2,7 @@ package myandroid.http;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpParams {
@@ -24,5 +25,21 @@ public class HttpParams {
 		}
 		return returnObj.startsWith("&") ? returnObj.substring(1,
 				returnObj.length()) : returnObj;
+	}
+
+	public static Map<String, Object> convert(String source) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		if (source == null)
+			return params;
+		String[] keyValue = source.split("&");
+		if (keyValue == null)
+			return params;
+		for (String kv : keyValue) {
+			String[] kvv = kv.split("=");
+			if (kvv.length != 2)
+				continue;
+			params.put(kvv[0], kvv[1]);
+		}
+		return params;
 	}
 }
