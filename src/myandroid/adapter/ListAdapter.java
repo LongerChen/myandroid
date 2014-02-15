@@ -23,6 +23,7 @@ public abstract class ListAdapter<D, V> extends BaseAdapter {
 	protected boolean cycle = false;
 	protected Context context;
 	protected Resources res;
+	OnDataSetChangeListener<D> onDataSetChangeListener;
 
 	public ListAdapter(Context context) {
 		this.context = context;
@@ -50,6 +51,13 @@ public abstract class ListAdapter<D, V> extends BaseAdapter {
 		fillRowView(position, view,
 				list.get(cycle ? position % list.size() : position));
 		return (View) view;
+	}
+	
+	@Override
+	public void notifyDataSetChanged() {
+		super.notifyDataSetChanged();
+		if(onDataSetChangeListener!=null)
+			onDataSetChangeListener.onChange(list);
 	}
 
 	/**
@@ -109,5 +117,22 @@ public abstract class ListAdapter<D, V> extends BaseAdapter {
 	public void add(D d) {
 		list.add(d);
 		notifyDataSetChanged();
+	}
+	
+	
+
+	public OnDataSetChangeListener<D> getOnDataSetChangeListener() {
+		return onDataSetChangeListener;
+	}
+
+	public void setOnDataSetChangeListener(
+			OnDataSetChangeListener<D> onDataSetChangeListener) {
+		this.onDataSetChangeListener = onDataSetChangeListener;
+	}
+
+
+
+	public interface OnDataSetChangeListener<D> {
+		public void onChange(List<D> data);
 	}
 }

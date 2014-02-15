@@ -1,15 +1,21 @@
 package myandroid.view;
 
+import java.util.List;
+
 import android.content.Context;
 import android.view.View;
 import android.widget.ListView;
 import myandroid.adapter.ListAdapter;
+import myandroid.adapter.ListAdapter.OnDataSetChangeListener;
+import myandroid.tools.Develop;
 
-public class WaterFallView<D> extends ListView {
+public class WaterFallView<D> extends ListView implements
+		OnDataSetChangeListener<D> {
 	protected OnFallingListener listener;
 	protected int startPage = 0;
 	protected int loadOffset = 3;
 	protected boolean fall = false;
+	boolean falling = false;
 
 	public WaterFallView(Context context) {
 		super(context);
@@ -62,13 +68,18 @@ public class WaterFallView<D> extends ListView {
 			return;
 		if (getAdapter() == null)
 			return;
+		if (falling)
+			return;
 		if ((getAdapter().getCount() - getLastVisiblePosition()) <= loadOffset)
-			if (listener != null)
+			if (listener != null) {
 				listener.onFailing(startPage++);
+				falling = true;
+			}
 	}
 
 	public void setAdapter(ListAdapter<D, ? extends View> adapter) {
 		super.setAdapter(adapter);
+		adapter.setOnDataSetChangeListener(this);
 	}
 
 	@Override
@@ -84,5 +95,10 @@ public class WaterFallView<D> extends ListView {
 
 	public interface OnFallingListener {
 		public void onFailing(int page);
+	}
+
+	@Override
+	public void onChange(List<D> data) {
+		falling = false;
 	}
 }
