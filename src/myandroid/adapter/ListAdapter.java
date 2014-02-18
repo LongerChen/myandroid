@@ -18,7 +18,7 @@ import android.widget.BaseAdapter;
  * @param <V>
  *            view
  */
-public abstract class ListAdapter<D, V> extends BaseAdapter {
+public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 	protected List<D> list = new ArrayList<D>();
 	protected boolean cycle = false;
 	protected Context context;
