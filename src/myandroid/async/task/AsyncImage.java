@@ -37,7 +37,7 @@ public class AsyncImage extends AsyncRunnable<Bitmap> {
 		if (v instanceof ImageView)
 			((ImageView) v).setImageBitmap(bm);
 		else
-			v.setBackground(new BitmapDrawable(activity.getResources(), bm));
+			v.setBackgroundDrawable(new BitmapDrawable(activity.getResources(), bm));
 	}
 
 	public void load(View v, String url, File file) {
@@ -101,10 +101,11 @@ public class AsyncImage extends AsyncRunnable<Bitmap> {
 	protected Bitmap onExecute() {
 		if (cache && file.exists())
 			return BitmapFactory.decodeFile(file.getAbsolutePath());
+		
 		Bitmap bm = BitmapFactory.decodeStream(
 				HttpResponse.getInputStream(HttpFactory.get(url)), null, opts);
 		try {
-			if (file != null && bm != null)
+			if (file != null && bm != null && !file.exists())
 				bm.compress(CompressFormat.PNG, 100, new FileOutputStream(file));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

@@ -91,4 +91,8 @@ public class MatchView extends View {
 		setImageBitmap(BitmapFactory.decodeResource(getResources(), resId));
 	}
 
+	public Bitmap getImage() {
+		return bm;
+	}
+
 }

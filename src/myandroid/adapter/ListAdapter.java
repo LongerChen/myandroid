@@ -3,6 +3,8 @@ package myandroid.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import myandroid.tools.Develop;
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
@@ -48,6 +50,7 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 	@Override
 	public View getView(int position, View v, ViewGroup parent) {
 		V view = createRowView(position, (V) v);
+		view.setId(position);
 		fillRowView(position, view,
 				list.get(cycle ? position % list.size() : position));
 		return (View) view;
@@ -55,6 +58,7 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 	
 	@Override
 	public void notifyDataSetChanged() {
+		Develop.e(this, "notifyDataSetChanged");
 		super.notifyDataSetChanged();
 		if(onDataSetChangeListener!=null)
 			onDataSetChangeListener.onChange(list);
