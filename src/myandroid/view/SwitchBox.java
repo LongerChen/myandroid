@@ -152,7 +152,8 @@ public class SwitchBox extends CompoundButton {
 				onCheckedChangeListener.onCheckedChanged(this, checked);
 			break;
 		}
-		invalidate();
+		if (isEnabled())
+			invalidate();
 		return isEnabled();
 	}
 

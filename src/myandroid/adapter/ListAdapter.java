@@ -55,13 +55,14 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 				list.get(cycle ? position % list.size() : position));
 		return (View) view;
 	}
-	
+
 	@Override
 	public void notifyDataSetChanged() {
-		Develop.e(this, "notifyDataSetChanged");
 		super.notifyDataSetChanged();
-		if(onDataSetChangeListener!=null)
+		if (onDataSetChangeListener != null) {
+			Develop.e(this, "notifyDataSetChanged");
 			onDataSetChangeListener.onChange(list);
+		}
 	}
 
 	/**
@@ -122,8 +123,6 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 		list.add(d);
 		notifyDataSetChanged();
 	}
-	
-	
 
 	public OnDataSetChangeListener<D> getOnDataSetChangeListener() {
 		return onDataSetChangeListener;
@@ -133,8 +132,6 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 			OnDataSetChangeListener<D> onDataSetChangeListener) {
 		this.onDataSetChangeListener = onDataSetChangeListener;
 	}
-
-
 
 	public interface OnDataSetChangeListener<D> {
 		public void onChange(List<D> data);
