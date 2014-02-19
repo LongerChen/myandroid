@@ -8,8 +8,9 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
 
-public class MatchView extends View {
+public class MatchView extends ImageView {
 	final public static int H = 0;
 	final public static int W = 1;
 
@@ -25,6 +26,7 @@ public class MatchView extends View {
 	public MatchView(Context context, int hw) {
 		super(context);
 		this.hw = hw;
+		paint.setAntiAlias(true);
 	}
 
 	@Override
@@ -81,12 +83,14 @@ public class MatchView extends View {
 		width = w;
 	}
 
+	@Override
 	public void setImageBitmap(Bitmap bm) {
 		this.bm = bm;
 		measure(getWidth(), getHeight());
 		invalidate();
 	}
 
+	@Override
 	public void setImageResource(int resId) {
 		setImageBitmap(BitmapFactory.decodeResource(getResources(), resId));
 	}
