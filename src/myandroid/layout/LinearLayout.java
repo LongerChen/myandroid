@@ -28,6 +28,11 @@ public class LinearLayout extends android.widget.LinearLayout {
 		return view;
 	}
 
+	public <T> T addMView(T view, LayoutParams params) {
+		addView((View) view, params);
+		return view;
+	}
+
 	/**
 	 * 
 	 * @param view
