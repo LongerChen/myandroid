@@ -5,12 +5,13 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class BaseFragment extends Fragment implements OnClickListener {
-	protected Activity activity;
+public abstract class BaseFragment<A extends Activity> extends Fragment
+		implements OnClickListener {
+	protected A activity;
 
 	@Override
 	public void onAttach(Activity activity) {
-		this.activity = activity;
+		this.activity = (A) activity;
 		super.onAttach(activity);
 	}
 

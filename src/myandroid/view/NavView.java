@@ -13,11 +13,11 @@ public class NavView extends RelativeLayout {
 	public NavView(Context context, int height, int sideWidth) {
 		super(context);
 		this.height = height;
-		leftLayout = addView(new RelativeLayout(context), sideWidth, height,
+		leftLayout = addView(new RelativeLayout(context), sideWidth, M,
 				new int[] { ALIGN_PARENT_LEFT });
-		righLayout = addView(new RelativeLayout(context), sideWidth, height,
+		righLayout = addView(new RelativeLayout(context), sideWidth, M,
 				new int[] { ALIGN_PARENT_RIGHT });
-		midLayout = addView(new RelativeLayout(context), W, height, leftLayout,
+		midLayout = addView(new RelativeLayout(context), W, M, leftLayout,
 				new int[] { RIGHT_OF }, righLayout, new int[] { LEFT_OF });
 	}
 	
