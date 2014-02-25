@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 public abstract class BaseFragment<A extends Activity> extends Fragment
 		implements OnClickListener {
 	protected A activity;
-	Context context;
+	protected Context context;
 
 	@Override
 	public void onAttach(Activity activity) {
