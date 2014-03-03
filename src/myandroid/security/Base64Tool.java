@@ -9,6 +9,8 @@ import android.util.Base64;
 public class Base64Tool {
 
 	public String bitmapToBase64(Bitmap bm) {
+		if(bm==null)
+			return null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		bm.compress(Bitmap.CompressFormat.JPEG, 50, baos); // bm is the bitmap
 															// object

@@ -11,7 +11,7 @@ import myandroid.http.HttpFactory;
 public class ApiAppVersion extends AsyncApi<String> {
 	String packageName;
 
-	public void initialize(String packageName) {
+	public ApiAppVersion(String packageName) {
 		this.packageName = packageName;
 	}
 
