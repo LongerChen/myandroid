@@ -31,7 +31,7 @@ public class MatchView extends ImageView {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		if (bm == null)
+		if (bm == null || bm.isRecycled())
 			return;
 		canvas.drawBitmap(bm, matrix, paint);
 		canvas.save();
@@ -40,7 +40,7 @@ public class MatchView extends ImageView {
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		if (bm == null)
+		if (bm == null || bm.isRecycled())
 			return;
 
 		float scale = 1;

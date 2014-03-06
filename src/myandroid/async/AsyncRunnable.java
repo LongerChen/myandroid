@@ -5,6 +5,8 @@ import android.os.Message;
 
 public abstract class AsyncRunnable<R> extends Handler implements Runnable {
 	protected AsyncCallBack<R> callBack = null;
+	boolean execute = false;
+	int id;
 
 	@Override
 	public void run() {
@@ -28,10 +30,12 @@ public abstract class AsyncRunnable<R> extends Handler implements Runnable {
 		if (callBack != null)
 			callBack.onResult(msg.what == AsyncStatus.SUCCESS, (R) msg.obj);
 		onResult(msg.what == AsyncStatus.SUCCESS, (R) msg.obj);
+		execute = false;
 	};
 
 	public void execute() {
 		Async.execute(this);
+		execute = true;
 	}
 
 	public void executeWithSleep(long time) {
@@ -45,5 +49,17 @@ public abstract class AsyncRunnable<R> extends Handler implements Runnable {
 
 	public void onResult(boolean isSuccess, R r) {
 
+	}
+
+	public boolean isExecute() {
+		return execute;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

@@ -64,7 +64,8 @@ public class HttpFactory {
 		if (body == null || connection == null)
 			return connection;
 		Develop.i(HttpFactory.class, "resquest:\n" + body);
-		connection.setDoOutput(true);
+		if (httpmethod != HttpMethod.GET)
+			connection.setDoOutput(true);
 		try {
 			DataOutputStream out = new DataOutputStream(
 					connection.getOutputStream());

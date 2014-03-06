@@ -9,24 +9,31 @@ import myandroid.http.HttpFactory;
 import myandroid.http.HttpResponse;
 import myandroid.tools.Develop;
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
+import android.view.animation.AnimationSet;
 import android.widget.ImageView;
 
 public class AsyncImage extends AsyncRunnable<Bitmap> {
 	boolean cache = false;
-	Activity activity;
+	Context context;
 	File file;
 	String url;
 	Options opts = new Options();
 	View v;
+	AnimationSet anim;
 
-	public AsyncImage(Activity activity) {
-		this.activity = activity;
+	public AsyncImage(Context context) {
+		this.context = context;
+	}
+
+	public void setAnim(AnimationSet anim) {
+		this.anim = anim;
 	}
 
 	public void load(View v, File file) {
@@ -37,8 +44,10 @@ public class AsyncImage extends AsyncRunnable<Bitmap> {
 		if (v instanceof ImageView)
 			((ImageView) v).setImageBitmap(bm);
 		else
-			v.setBackgroundDrawable(new BitmapDrawable(activity.getResources(),
+			v.setBackgroundDrawable(new BitmapDrawable(context.getResources(),
 					bm));
+		if (anim != null)
+			v.startAnimation(anim);
 	}
 
 	public void load(View v, String url, File file) {
@@ -98,7 +107,7 @@ public class AsyncImage extends AsyncRunnable<Bitmap> {
 	}
 
 	private View createView(int v) {
-		return activity.findViewById(v);
+		return ((Activity) context).findViewById(v);
 	}
 
 	@Override
