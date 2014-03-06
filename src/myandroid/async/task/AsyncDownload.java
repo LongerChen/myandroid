@@ -30,6 +30,12 @@ public class AsyncDownload extends AsyncRunnable<Integer> {
 		float contentLength = connection.getContentLength();
 		float loadingLength = 0;
 		InputStream is = HttpResponse.getInputStream(connection);
+		try {
+			Develop.e(this, "ResponseCode:" + connection.getResponseCode());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (is == null)
 			return null;
 		try {
@@ -40,10 +46,8 @@ public class AsyncDownload extends AsyncRunnable<Integer> {
 			while ((flag = is.read(buffer)) != -1) {
 				out.write(buffer, 0, flag);
 				loadingLength += flag;
-				if (percent != (int) (loadingLength / contentLength * 100)) {
+				if (percent != (int) (loadingLength / contentLength * 100)) 
 					obtainMessage(AsyncStatus.SUCCESS, percent).sendToTarget();
-					Develop.e(this, "percent:" + percent);
-				}
 				percent = (int) (loadingLength / contentLength * 100);
 				if (stop) {
 					output.delete();
@@ -61,7 +65,6 @@ public class AsyncDownload extends AsyncRunnable<Integer> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Develop.e(this, "finish");
 		return stop ? 0 : 100;
 	}
 
