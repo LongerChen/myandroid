@@ -16,8 +16,8 @@ public class MatchView extends ImageView {
 
 	int hw = -1;
 
-	int height = 0;
-	int width = 0;
+	protected int height = 0;
+	protected int width = 0;
 
 	Bitmap bm;
 	Matrix matrix = new Matrix();

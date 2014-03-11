@@ -154,7 +154,7 @@ public class JParser {
 			if (field.getType() == Boolean.TYPE)
 				field.set(o, Boolean.parseBoolean(value.toString()));
 			if (field.getType() == String.class)
-				field.set(o, value.toString());
+				field.set(o, String.valueOf(value));
 			Develop.i(JParser.class, "try to parse："
 					+ value.getClass().getSimpleName() + " > "
 					+ field.getType().getSimpleName() + "：Success");
