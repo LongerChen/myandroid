@@ -4,7 +4,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import myandroid.tools.Develop;
 
 public class HttpFactory {
 
@@ -61,11 +60,10 @@ public class HttpFactory {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (body == null || connection == null)
-			return connection;
-		Develop.i(HttpFactory.class, "resquest:\n" + body);
 		if (httpmethod != HttpMethod.GET)
 			connection.setDoOutput(true);
+		if (body == null || connection == null)
+			return connection;
 		try {
 			DataOutputStream out = new DataOutputStream(
 					connection.getOutputStream());
@@ -78,6 +76,7 @@ public class HttpFactory {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		connection.disconnect();
 		return connection;
 	}
 
