@@ -76,7 +76,6 @@ public class HttpFactory {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		connection.disconnect();
 		return connection;
 	}
 

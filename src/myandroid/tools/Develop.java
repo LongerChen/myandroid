@@ -52,11 +52,13 @@ public class Develop {
 	}
 
 	public static void toast(Context context, Object obj, int duration) {
-		Toast.makeText(context, obj.toString(), duration).show();
+		if (DEBUG)
+			Toast.makeText(context, obj.toString(), duration).show();
 	}
 
 	public static void toast(Context context, int resId, int duration) {
-		Toast.makeText(context, context.getString(resId), duration).show();
+		if (DEBUG)
+			Toast.makeText(context, context.getString(resId), duration).show();
 	}
 
 	private static String getClassName(Object c) {
@@ -85,11 +87,10 @@ public class Develop {
 			layout.addView(devText, LayoutParams.MATCH_PARENT,
 					LayoutParams.WRAP_CONTENT);
 
-			SimpleDateFormat dateFormat = new SimpleDateFormat(
-					"MM/dd HH:mm");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd HH:mm");
 			String s = dateFormat.format(getBuildDate(context));
 			devText.setText("This is Developer " + s);
-			
+
 			devText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
 			devText.setBackgroundColor(Color.BLACK);
 			devText.setTextColor(Color.WHITE);
@@ -130,8 +131,7 @@ public class Develop {
 	public static void addDevText(Context context, String title) {
 
 		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-				LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
 				WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 						| WindowManager.LayoutParams.FLAG_FULLSCREEN,
