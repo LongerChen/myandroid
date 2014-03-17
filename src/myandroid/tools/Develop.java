@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import myandroid.layout.Sizer;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.graphics.PixelFormat;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.ViewGroup.LayoutParams;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 public class Develop {
 	final public static String divider = "====================";
 	static boolean DEBUG = false;
+	static TextView textView;
 
 	public static void v(Object c, Object log) {
 		if (DEBUG)
@@ -128,18 +131,22 @@ public class Develop {
 		}
 	}
 
-	public static void addDevText(Context context, String title) {
-
+	public static void addDevText(Context context, String text) {
+		if (textView != null && textView.getParent() != null)
+			return;
 		WindowManager.LayoutParams params = new WindowManager.LayoutParams(
 				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
-				WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+				WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
 				WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 						| WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				PixelFormat.TRANSLUCENT);
-		final TextView textView = new TextView(context);
-		textView.setBackgroundColor(Color.argb(200, 0, 0, 0));
-		textView.setTextColor(Color.GRAY);
-		textView.setText(title);
+		textView = new TextView(context);
+		// textView.setBackgroundColor(Color.argb(255, 0, 0, 0));
+		textView.setTextColor(Color.RED);
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+				new Sizer(context).textPxFromWidth(30));
+		textView.setText(text);
+		textView.setGravity(Gravity.CENTER);
 
 		final WindowManager manager = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
@@ -149,18 +156,12 @@ public class Develop {
 		final Animation out = new AlphaAnimation(1, 0);
 		out.setDuration(1000);
 		textView.startAnimation(in);
-		new CountDownTimer(2000, 3000) {
+	}
 
-			@Override
-			public void onTick(long millisUntilFinished) {
-				textView.startAnimation(out);
-			}
-
-			@Override
-			public void onFinish() {
-				// TODO Auto-generated method stub
-				manager.removeView(textView);
-			}
-		}.start();
+	public static void removeDevText(Context context) {
+		final WindowManager manager = (WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE);
+		if (textView != null && textView.getParent() != null)
+			manager.removeView(textView);
 	}
 }

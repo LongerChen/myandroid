@@ -75,11 +75,14 @@ public abstract class ListAdapter<D, V extends View> extends BaseAdapter {
 
 	/**
 	 * 
-	 * @param index
+	 * @param i
+	 *            index
 	 * @param v
-	 * @param data
+	 *            view
+	 * @param d
+	 *            data
 	 */
-	protected abstract void fillRowView(int index, V view, D data);
+	protected abstract void fillRowView(int i, V v, D d);
 
 	/**
 	 * 
