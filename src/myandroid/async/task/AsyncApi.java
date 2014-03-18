@@ -11,6 +11,7 @@ import myandroid.tools.Develop;
 public abstract class AsyncApi<R> extends AsyncRunnable<R> {
 	HttpURLConnection connection;
 	protected Map<String, Object> params = new HashMap<String, Object>();
+	protected Map<String, String> headers = new HashMap<String,String>();
 
 	public AsyncApi(Object[]... values) {
 		for (Object[] o : values)
