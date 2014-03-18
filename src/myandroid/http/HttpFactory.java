@@ -4,6 +4,9 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
+
+import myandroid.tools.Develop;
 
 public class HttpFactory {
 
@@ -35,6 +38,11 @@ public class HttpFactory {
 		return create(url, HttpMethod.POST, body);
 	}
 
+	public static HttpURLConnection post(String url,
+			Map<String, String> headers, String body) {
+		return create(url, HttpMethod.POST, headers, body);
+	}
+
 	public static HttpURLConnection put(String url) {
 		return create(url, HttpMethod.PUT);
 	}
@@ -48,22 +56,36 @@ public class HttpFactory {
 	}
 
 	private static HttpURLConnection create(String url, String httpmethod) {
-		return create(url, httpmethod, null);
+		return create(url, httpmethod, null, null);
 	}
 
 	private static HttpURLConnection create(String url, String httpmethod,
 			String body) {
+		return create(url, httpmethod, null, body);
+	}
+
+	private static HttpURLConnection create(String url, String httpmethod,
+			Map<String, String> headers) {
+		return create(url, httpmethod, headers, null);
+	}
+
+	private static HttpURLConnection create(String url, String httpmethod,
+			Map<String, String> headers, String body) {
 		HttpURLConnection connection = null;
 		try {
 			connection = (HttpURLConnection) new URL(url).openConnection();
 			connection.setRequestMethod(httpmethod);
+			if (headers != null)
+				for (String key : headers.keySet())
+					connection.setRequestProperty(key, headers.get(key));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if (httpmethod != HttpMethod.GET)
-			connection.setDoOutput(true);
 		if (body == null || connection == null)
 			return connection;
+		Develop.i(HttpFactory.class, "resquest:\n" + body);
+		if (httpmethod != HttpMethod.GET)
+			connection.setDoOutput(true);
 		try {
 			DataOutputStream out = new DataOutputStream(
 					connection.getOutputStream());
