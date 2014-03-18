@@ -26,10 +26,6 @@ public class Http {
 	public Http header(Map<String, String> headers) {
 		if (headers == null)
 			return this;
-		if (connect == null) {
-			Develop.e(this, "Call url() first");
-			return this;
-		}
 		for (String key : headers.keySet())
 			connect.setRequestProperty(key, headers.get(key));
 		return this;
@@ -45,10 +41,6 @@ public class Http {
 	}
 
 	public Http body(String body) {
-		if (connect == null) {
-			Develop.e(this, "Call url() first");
-			return this;
-		}
 		if (connect.getRequestMethod().equals(HttpMethod.GET))
 			return this;
 
