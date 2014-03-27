@@ -74,7 +74,7 @@ public class QRView extends SurfaceView implements SurfaceHolder.Callback {
 			camera.setDisplayOrientation(90);
 			
 			Camera.Parameters cp = camera.getParameters();
-			cp.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
+//			cp.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
 			Size s = cp.getPictureSize();
 			getLayoutParams().height = (int) (((float)s.height / (float)s.width) * context.getResources().getDisplayMetrics().heightPixels);
 			

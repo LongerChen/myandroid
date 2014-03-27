@@ -35,9 +35,9 @@ public class Preference {
 		e.putLong(key, value).commit();
 	}
 
-	public void putBoolean(String key, Set<String> value) {
-		e.putStringSet(key, value).commit();
-	}
+//	public void putStringSet(String key, Set<String> value) {
+//		e.putStringSet(key, value).commit();
+//	}
 
 	public String getString(String key, String defValue) {
 		return p.getString(key, defValue);
@@ -59,9 +59,9 @@ public class Preference {
 		return p.getFloat(key, defValue);
 	}
 
-	public Set<String> getStringSet(String key, Set<String> defValue) {
-		return p.getStringSet(key, defValue);
-	}
+//	public Set<String> getStringSet(String key, Set<String> defValue) {
+//		return p.getStringSet(key, defValue);
+//	}
 
 	public void remove(String key) {
 		e.remove(key).commit();

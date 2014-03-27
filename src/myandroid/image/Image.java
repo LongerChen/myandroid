@@ -23,7 +23,7 @@ public class Image {
 				if (view instanceof ImageView)
 					((ImageView) view).setImageBitmap(obj);
 				else
-					view.setBackground(new BitmapDrawable(obj));
+					view.setBackgroundDrawable(new BitmapDrawable(obj));
 			}
 		});
 		asyncUrlBitmap.execute();
