@@ -224,6 +224,16 @@ public class RelativeLayout extends android.widget.RelativeLayout {
 		super.setPadding(calPadding, calPadding, calPadding, calPadding);
 	}
 
+	/**
+	 * 
+	 * @param padding
+	 *            上下左右padding
+	 */
+	public void setPadding(float left, float top, float right, float bottom) {
+		super.setPadding(s.viewPxFromWidth(left), s.viewPxFromWidth(top),
+				s.viewPxFromWidth(right), s.viewPxFromWidth(bottom));
+	}
+
 	public void setSmallBackgroundResource(int resid) {
 		BitmapFactory.Options opt = new BitmapFactory.Options();
 		opt.inPreferredConfig = Config.RGB_565;
